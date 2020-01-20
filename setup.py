@@ -37,7 +37,8 @@ setup(
     package_dir={"": "src"},
     install_requires=['', ],
     extras_require={
-        'tests': ['pytest', 'pytest_cov', 'mypy', 'flake8'],
+        'tests': ['pytest', 'pytest_cov', 'mypy', 'pytest-mypy',
+                  'flake8', 'pytest-flake8'],
         'develop': ['', ]
         },
 )

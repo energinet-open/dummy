@@ -32,40 +32,9 @@ jobs:
   - script: pip install -e ".[tests]"
     displayName: "Install test dependencies"
 
-  - script: pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
+  - script: |
+      pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
+      pytest --mypy src test
+      flake8 --per-file-ignores="__init__.py:F401"
+
     displayName: "Run unittests"
-
-
-- job: pep8_check
-
-  steps:
-
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-      addToPath: true
-      architecture: 'x64'
-
-  - script: pip install -e ".[tests]"
-    displayName: "Install test dependencies"
-
-  # ignore unused import warnings in __init__.py
-  - script: flake8 --per-file-ignores="__init__.py:F401"
-    displayName: "Run flake8"
-
-
-- job: mypy_check
-
-  steps:
-
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-      addToPath: true
-      architecture: 'x64'
-
-  - script: pip install -e ".[tests]"
-    displayName: "Install test dependencies"
-
-  - script: mypy src test --pretty
-    displayName: "Run mypy"

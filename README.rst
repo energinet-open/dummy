@@ -1,41 +1,73 @@
 python_module_template
 ======================
 
-A python module template
+A python project template. You can use this as a starting point for a Python module or cli.
 
 Getting Started
 ---------------
 
-pip install git+https://github.com/energinet-open/python_module_template.git@master
+::
 
-Basic use.
-
-
-
-Setup
------
-
-unittests
-
-pytest
-
-pytest-cov
+    git clone git@github.com:energinet-open/dummy.git
 
 
-building and packaging
+To install test dependencies locally and run basic tests
 
-read this 
-https://hackersandslackers.com/python-poetry/
+::
+    python3 -m venv test-env
+    source test-env/bin/activate
+    cd dummy
+    pip install -e ".[tests]"
+    pytest
+
+Run all tests as executed when commits are pushed.
+
+::
+
+    pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
+    pytest --mypy src test
+    flake8 --per-file-ignores="__init__.py:F401"
+
+To start developing
+
+::
+
+    python3 -m venv dev-env
+    source dev-env/bin/activate
+    cd dummy
+    pip install -e ".[develop]"
+
+
+Overview
+--------
+
+
+
+
+setuptools
+
+edit /setup.py
+
 
 
 Setuptools https://setuptools.readthedocs.io/en/latest/
 
 https://pypi.org/classifiers/
 
-PEP518 pyproject.toml
-
 
 Versioning:
+
+- automatically handled using setuptools_scm - just make a release in git
+
+
+
+unittests
+
+
+
+
+pytest
+
 
 
 Read this
@@ -43,5 +75,16 @@ Read this
 https://docs.pytest.org/en/latest/goodpractices.html
 
 
-tox 
+
+
+For the future
+--------------
+
+Consider
+
+PEP518 pyproject.toml
+https://snarky.ca/clarifying-pep-518/
+https://hackersandslackers.com/python-poetry/
+
+tox
 to be considered
