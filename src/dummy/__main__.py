@@ -4,13 +4,10 @@
 import sys
 import argparse
 
-from typing import List
-
 import dummy
 
 
 def cli():
-# argparse.ArgumentParser:
     '''
     Dummy command line interface using argparse
     https://docs.python.org/3/library/argparse.html

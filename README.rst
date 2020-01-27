@@ -24,9 +24,12 @@ Run all tests as executed when commits are pushed.
 
 ::
 
-    pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
-    pytest --mypy src test
     flake8 --per-file-ignores="__init__.py:F401"
+    pytest --mypy src test
+    pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
+
+    or
+    python3 run_tests.py
 
 To start developing
 

@@ -6,7 +6,7 @@ class _dummy:
 
     def __init__(self) -> None:
 
-        self._number : int = 0
+        self._number: int = 0
 
     def foo(self, parameter: int) -> int:
         return self._number
