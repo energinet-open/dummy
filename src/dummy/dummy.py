@@ -4,12 +4,12 @@
 from dummy import _dummy
 
 
-def tender():
+def tender() -> int:
 
     return _dummy.tender()
 
 
-def foo():
+def foo() -> int:
 
     d = _dummy._dummy()
     return d.foo(2)

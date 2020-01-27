@@ -4,8 +4,13 @@
 import sys
 import argparse
 
+from typing import List
+
+import dummy
+
 
 def cli():
+# argparse.ArgumentParser:
     '''
     Dummy command line interface using argparse
     https://docs.python.org/3/library/argparse.html
@@ -25,10 +30,22 @@ def cli():
     return args
 
 
-def run():
+def run() -> None:
 
     if sys.version_info < (3, 5):
         raise RuntimeError("Requires Python 3.5+")
+
+    args = cli()
+
+    run_command(**vars(args))
+
+
+def run_command(command, **kwargs):
+
+    cmd = {'foo': dummy.foo,
+           'tender': dummy.tender}
+
+    cmd[command](**kwargs)
 
 
 if __name__ == "__main__":

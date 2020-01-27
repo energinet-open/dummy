@@ -41,13 +41,17 @@ To start developing
 Overview
 --------
 
+Read this
+
+
+https://docs.pytest.org/en/latest/goodpractices.html
 
 
 
 setuptools
+..........
 
 edit /setup.py
-
 
 
 Setuptools https://setuptools.readthedocs.io/en/latest/
@@ -62,17 +66,32 @@ Versioning:
 
 
 unittests
-
+.........
 
 
 
 pytest
+......
 
 
 
-Read this
+Type hinting
+............
 
-https://docs.pytest.org/en/latest/goodpractices.html
+https://www.python.org/dev/peps/pep-0484/
+
+
+http://mypy-lang.org/
+
+https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+
+
+
+If you are using Visual Studio Code you can also consider
+
+https://github.com/microsoft/pyright
+
+Implemented in typescript
 
 
 
