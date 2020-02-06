@@ -17,7 +17,8 @@ To install test dependencies locally and run basic tests
     python3 -m venv test-env
     source test-env/bin/activate
     cd dummy
-    pip install -e ".[tests]"
+    pip install -r src/requirements.txt -r test/requirements.txt
+    pip install -e .
     pytest
 
 Run all tests as executed when commits are pushed.
@@ -30,15 +31,6 @@ Run all tests as executed when commits are pushed.
 
     or
     python3 run_tests.py
-
-To start developing
-
-::
-
-    python3 -m venv dev-env
-    source dev-env/bin/activate
-    cd dummy
-    pip install -e ".[develop]"
 
 
 Overview

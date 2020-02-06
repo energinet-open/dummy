@@ -35,9 +35,4 @@ setup(
     packages=find_packages(where='src', exclude=['test']),
     package_dir={"": "src"},
     install_requires=['', ],
-    extras_require={
-        'tests': ['pytest', 'pytest_cov', 'mypy', 'pytest-mypy',
-                  'flake8'],
-        'develop': ['', ]
-        },
 )

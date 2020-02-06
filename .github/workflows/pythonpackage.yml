@@ -20,7 +20,8 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
-        pip3 install -e ".[tests]"
+        pip install -r src/requirements.txt -r test/requirements.txt
+        pip install -e .
     - name: Lint with flake8
       run: flake8 --per-file-ignores="__init__.py:F401"
     - name: Mypy
