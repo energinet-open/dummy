@@ -14,6 +14,7 @@ Getting Started
 To install test dependencies locally and run basic tests
 
 ::
+
     python3 -m venv test-env
     source test-env/bin/activate
     cd dummy
@@ -22,6 +23,7 @@ To install test dependencies locally and run basic tests
 Run all tests as executed when commits are pushed.
 
 ::
+
     python tool test
 
 
