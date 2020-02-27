@@ -17,20 +17,12 @@ To install test dependencies locally and run basic tests
     python3 -m venv test-env
     source test-env/bin/activate
     cd dummy
-    pip install -r src/requirements.txt -r test/requirements.txt
-    pip install -e .
-    pytest
+    python tool setup
 
 Run all tests as executed when commits are pushed.
 
 ::
-
-    flake8 --per-file-ignores="__init__.py:F401"
-    pytest --mypy src test
-    pytest --cov=dummy test/ --cov-fail-under=70 --durations=5 -vv
-
-    or
-    python3 run_tests.py
+    python tool test
 
 
 Overview
