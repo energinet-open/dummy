@@ -161,68 +161,84 @@ def _release(**kwargs):
     raise Exception("relase step not implemented")
 
 
-def cli(commands=['test', 'setup']):
+def cli():
 
     parser = argparse.ArgumentParser(description='Tool')
     subparsers = parser.add_subparsers(help='sub-command help')
 
-    parser_setup = subparsers.add_parser('setup', help='setup help')
+    parser_setup = subparsers.add_parser('setup', help='install dependencies.')
     parser_setup.set_defaults(func=_setup)
 
-    parser_test = subparsers.add_parser('test', help='test help')
+    parser_test = subparsers.add_parser('test', help='run tests')
     parser_test.set_defaults(func=_test)
 
     parser_test.add_argument(
         '--no-requirements',
         dest='requirements',
         action='store_false',
-        help='run requirements check'
+        help='diable check that correct requirements are installed.'
     )
 
     parser_test.add_argument(
         '--no-pep8',
         dest='pep8',
         action='store_false',
-        help='run unittests'
+        help='disable pep 8 check.'
     )
 
     parser_test.add_argument(
         '--no-static',
         dest='static',
         action='store_false',
-        help='run unittests'
+        help='disable static checks of source.'
     )
 
     parser_test.add_argument(
         '--no-license',
         dest='license',
-        action='store_false', help='run unittests')
+        action='store_false', help='disable check of licenses in requirements.'
+    )
 
     parser_test.add_argument(
         '--no-test_files',
         dest='test_files',
         action='store_false',
-        help='run unittests')
+        help='disable test that all py files have a corresponding test file.'
+    )
 
     parser_test.add_argument(
         '--no-unittests',
         dest='unittests',
         action='store_false',
-        help='run unittests')
+        help='disable unittests.'
+    )
 
-    parser_setup = subparsers.add_parser('clean', help='setup help')
-    parser_setup.set_defaults(func=_clean)
+    parser_clean = subparsers.add_parser(
+        'clean',
+        help='remove various temporary files.'
+        )
+    parser_clean.set_defaults(func=_clean)
 
-    parser_setup = subparsers.add_parser('update', help='setup help')
-    parser_setup.set_defaults(func=_update_requirements)
+    parser_update = subparsers.add_parser(
+        'update',
+        help='update dependencies to newest versions.'
+    )
+    parser_update.set_defaults(func=_update_requirements)
 
-    parser_setup = subparsers.add_parser('release', help='setup help')
-    parser_setup.set_defaults(func=_release)
+    parser_release = subparsers.add_parser(
+        'release',
+        help='release the module or cli.'
+    )
+    parser_release.set_defaults(func=_release)
 
-    return parser.parse_args()
+    return parser
 
 
 if __name__ == '__main__':
 
-    args = cli()
-    args.func(**vars(args))
+    parser = cli()
+    args = parser.parse_args()
+    if hasattr(args, 'func'):
+        args.func(**vars(args))
+    else:
+        parser.print_help()
