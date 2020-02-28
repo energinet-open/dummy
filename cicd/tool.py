@@ -7,52 +7,7 @@ import os
 import shutil
 import subprocess
 
-
-def _check_requirements():
-    """
-    Check that all requirements in the environment corresponds to what is
-    specified in the requirement files.
-    """
-
-    requirements = glob.glob('*/*requirements.txt', recursive=True)
-
-    for r in requirements:
-        subprocess.run(f"requirementz --file {r}", shell=True, check=True)
-
-
-def _check_test_files(src_path, test_path):
-    """
-    check that for each file.py in the src_path there is a corresponding
-    test_file.py in the test_path.
-    """
-
-    test_paths = glob.glob(f'{test_path}/*.py')
-    test_sub_paths = []
-    for tp in test_paths:
-        test_sub_paths.append(tp.split(os.path.join(test_path, "test_"))[-1])
-
-    src_paths = glob.glob(f'{src_path}/*.py')
-    for sp in src_paths:
-        if "__init__.py" in sp:
-            continue
-        if sp.split(src_path)[-1] not in test_sub_paths:
-            raise Exception("no test for file " + sp)
-
-
-def _update_requirements(**kwargs):
-    """
-    Update all requirements to the newest available
-    """
-
-    if not shutil.which('pur'):
-        print("Pur not available, run 'python tool setup' to install")
-        exit(1)
-
-    requirements = glob.glob('*/*requirements.txt', recursive=True)
-
-    for r in requirements:
-        print(f'Updating {r}')
-        subprocess.run(f"pur -r {r}", shell=True, check=True)
+import base_tool
 
 
 def _setup(**kwargs):
@@ -88,7 +43,7 @@ def _test(**kwargs):
 
         if kwargs['requirements']:
             print("Checking installed dependencies.")
-            _check_requirements()
+            base_tool.check_requirements()
 
         if kwargs['pep8']:
             print("Checking pep8 conformance.")
@@ -118,7 +73,7 @@ def _test(**kwargs):
 
         if kwargs['test_files']:
             print("Checking for test files for all source files.")
-            _check_test_files(
+            base_tool.check_test_files(
                 "src/template_advanced_analytics_service/", "test/src/")
 
         if kwargs['unittests']:
@@ -136,6 +91,11 @@ def _test(**kwargs):
         exit(e.returncode)
 
 
+def _update(**kwargs):
+
+    base_tool.update_requirements()
+
+
 def _clean(**kwargs):
 
     for path in glob.glob('**/__pycache__', recursive=True):
@@ -150,14 +110,12 @@ def _clean(**kwargs):
     for path in glob.glob('**/.*cache', recursive=True):
         shutil.rmtree(path)
 
-    for path in glob.glob('**/requirements_model.txt', recursive=True):
-        os.remove(path)
-
     for path in glob.glob('**/model.pickle', recursive=True):
         os.remove(path)
 
 
 def _release(**kwargs):
+    
     raise Exception("relase step not implemented")
 
 
@@ -223,7 +181,7 @@ def cli():
         'update',
         help='update dependencies to newest versions.'
     )
-    parser_update.set_defaults(func=_update_requirements)
+    parser_update.set_defaults(func=_update)
 
     parser_release = subparsers.add_parser(
         'release',
